@@ -1,4 +1,3 @@
-
 import Game from './Components/Game';
 
 function App() {
