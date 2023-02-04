@@ -8,8 +8,8 @@ const MoveModel = require("../src/Models/moveModel")
 
 var bodyParser = require('body-parser')
 
-const uri = "mongodb+srv://bombsoldier:NqzaOdBuvtboekWU@cluster0.ld5n3bl.mongodb.net/connect?retryWrites=true&w=majority";
-const mongo_uri = "mongodb+srv://bombsoldier:NqzaOdBuvtboekWU@cluster0.ld5n3bl.mongodb.net/connect?retryWrites=true&w=majority"
+const uri = "mongodb+srv://bombsoldier:<password>@cluster0.ld5n3bl.mongodb.net/connect?retryWrites=true&w=majority";
+const mongo_uri = "mongodb+srv://bombsoldier:<password>@cluster0.ld5n3bl.mongodb.net/connect?retryWrites=true&w=majority"
 
 app.use(cors());
 app.use(express.json());
