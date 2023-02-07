@@ -13,6 +13,7 @@ router.route("/create").post((req, res) => {
         y,
         player
     });
+    console.log("ROUTER ROUTE")
     console.log(newMove)
     newMove.save();
     }
@@ -22,9 +23,5 @@ router.route("/create").post((req, res) => {
     }
 });
 
-// router.route("/moves").get((req, res) => {
-//     Move.find()
-//         .then(foundMoves => res.json(foundMoves))
-// })
 
 module.exports = router;

@@ -1,20 +1,11 @@
 const mongoose = require("mongoose")
 
-const moveSchema = new mongoose.Schema({
-    x: {
-        type: Number,
-        required: true
-    },
-    y: {
-        type: Number,
-        required: true
-    },
-    player: {
-        type: String,
-        required: true
-    }
-})
+var moveSchema = new mongoose.Schema({
+    x: Number,
+    y: Number,
+    player: String
+});
 
-const MoveModel = mongoose.model("Move", moveSchema)
+const MoveModel = mongoose.model("moves", moveSchema)
 
 module.exports = MoveModel;

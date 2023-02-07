@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 const API_URL = "http://localhost:3001/create"
-const API_KEY = "https://data.mongodb-api.com/app/data-fosoa/endpoint/data/v1"
+
 
 const Game = () => {
 const [player, setPlayer] = useState('red')
@@ -16,14 +16,6 @@ const [winMoves, setWinMoves] = useState([])
 const rows = 6;
 const columns = 7;
 
-
-    // useEffect(() => {
-    //     axios.get("http://localhost:3001/getMoves")
-    //     .then((response) => {
-    //     console.log(response)
-    //     })
-    //     .catch((err) => console.log(err));
-    // }, [])
 
 const getPiece = (x, y) => {
     const list = moves.filter((item) => {
@@ -79,7 +71,7 @@ const checkForWin = (x, y) => {
     }
 }
 
-const addMove = (x, y) => {
+const AddMove = (x, y) => {
     const nextPlayer = player === 'red' ? 'yellow' : 'red';
     let avaliableYposition = null;
     moves.concat([])
@@ -92,18 +84,19 @@ const addMove = (x, y) => {
     if(avaliableYposition !== null){
         const move = moves.concat({x: x,y: avaliableYposition,player: player})
         let newMove = {
-            "x": x,
+            "x": parseInt(x),
             "y": avaliableYposition,
             "player": player
         }
         setMoves(move)
         console.log(move)
         console.log(newMove)
+        
+        //post request to "/create" -> db
         axios.post(API_URL, newMove)
         .then((response) => console.log(response))
         .catch((e) => {console.log(JSON.stringify(e))})
-        // .then(() => {checkForWin(x, avaliableYposition, player)})
-        // .then(() => {setPlayer(nextPlayer)})
+
         checkForWin(x, avaliableYposition, player)
         setPlayer(nextPlayer)
         
@@ -121,7 +114,7 @@ const CreateBoard = () => {
         for(let column = 0; column < columns; column++){
             const piece = getPiece(column, row)
             columnViews.push(
-            <div onClick={() => {addMove(column, row)}} style={{cursor: 'pointer', width: '6vw', height: '6vw', backgroundColor: '#00a8ff', display: 'flex', padding: 5}}>
+            <div onClick={() => {AddMove(column, row)}} style={{cursor: 'pointer', width: '6vw', height: '6vw', backgroundColor: '#00a8ff', display: 'flex', padding: 5}}>
                 <div style={{borderRadius: '50%', backgroundColor: 'white', flex: 1, display: 'flex'}}>
                     {piece ? <div style={{backgroundColor: piece.player, flex: 1, borderRadius: '50%', border: '1px solid black'}} /> : undefined}
                 </div>
