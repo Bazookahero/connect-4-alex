@@ -2,9 +2,9 @@ const express = require("express")
 const app = express()
 const cors = require("cors")
 const mongoose = require("mongoose")
-const MoveModel = require("../src/Models/moveModel")
+const MoveModel = require("../src/Models/MoveModel")
 // const PORT = 3001;
-const userRoutes = require("../src/Routes/moveRoute")
+const userRoutes = require("../src/Routes/MoveRoute")
 
 var bodyParser = require('body-parser')
 
