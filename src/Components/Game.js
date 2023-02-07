@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios';
 
 
+
 const API_URL = "http://localhost:3001/create"
 const GET_ALL_URL = "http://localhost:3001/getAll"
 const RESET_URL = "http://localhost:3001/reset"
@@ -14,16 +15,26 @@ const [player, setPlayer] = useState('red')
 const [moves, setMoves] = useState([])
 const [winner, setWinner] = useState('')
 const [winMoves, setWinMoves] = useState([])
+const [lastPlayer, setLastPlayer] = useState('')
 const rows = 6;
 const columns = 7;
 
 
 useEffect(() => {
-    setInterval(() => {
-        axios.get(GET_ALL_URL)
-        .then((response) => {setMoves(response.data || null)})
-        }, 5000);
-},[])
+    setInterval(async() => {
+        await axios.get(GET_ALL_URL)
+        .then((response) => {setMoves(response.data || null);})
+        }, 3500);
+    }, [])
+
+    useEffect(() => {
+        if(moves[moves.length -1] !== undefined){
+        let {playerX} = moves[moves.length -1]
+        
+        setLastPlayer(playerX || null)
+        }
+    }, [player])
+
 
 const getPiece = (x, y) => {
     const list = moves.filter((item) => {
@@ -42,6 +53,7 @@ const resetBoard = () => {
     setWinMoves([])
     setPlayer('red')
     axios.post(RESET_URL)
+    setLastPlayer('yellow')
 }
 
 const getWinningMovesDiagonal = (xPosition, yPosition, xVelocity, yVelocity) => {
@@ -111,6 +123,7 @@ const AddMove = (x, y) => {
         .catch((e) => {console.log(JSON.stringify(e))})
 
         checkForWin(x, avaliableYposition, player)
+        setLastPlayer(player)
         setPlayer(nextPlayer)
         
     }
