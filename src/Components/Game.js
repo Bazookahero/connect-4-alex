@@ -6,7 +6,8 @@ import axios from 'axios';
 
 
 const API_URL = "http://localhost:3001/create"
-
+const GET_ALL_URL = "http://localhost:3001/getAll"
+const RESET_URL = "http://localhost:3001/reset"
 
 const Game = () => {
 const [player, setPlayer] = useState('red')
@@ -17,6 +18,13 @@ const rows = 6;
 const columns = 7;
 
 
+useEffect(() => {
+    setInterval(() => {
+        axios.get(GET_ALL_URL)
+        .then((response) => {setMoves(response.data || null)})
+        }, 5000);
+},[])
+
 const getPiece = (x, y) => {
     const list = moves.filter((item) => {
         return (item.x === x && item.y === y);
@@ -24,11 +32,16 @@ const getPiece = (x, y) => {
     return list[0];
 }
 
+
+
+
+
 const resetBoard = () => {
     setMoves([])
     setWinner('')
     setWinMoves([])
     setPlayer('red')
+    axios.post(RESET_URL)
 }
 
 const getWinningMovesDiagonal = (xPosition, yPosition, xVelocity, yVelocity) => {
