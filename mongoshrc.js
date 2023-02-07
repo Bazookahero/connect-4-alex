@@ -1,1 +1,0 @@
-db.clientConnections.insertOne( { connectTime: ISODate() } )
