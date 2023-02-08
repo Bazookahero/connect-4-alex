@@ -24,16 +24,15 @@ useEffect(() => {
     setInterval(async() => {
         await axios.get(GET_ALL_URL)
         .then((response) => {setMoves(response.data || null);})
+        
         }, 3500);
     }, [])
 
-    useEffect(() => {
-        if(moves[moves.length -1] !== undefined){
-        let {playerX} = moves[moves.length -1]
-        
-        setLastPlayer(playerX || null)
-        }
-    }, [player])
+useEffect(() => {
+    if(moves.length % 2 === 0){
+            setPlayer('red')
+        }else{setPlayer('yellow')}
+}, [moves])
 
 
 const getPiece = (x, y) => {
@@ -97,6 +96,7 @@ const checkForWin = (x, y) => {
 }
 
 const AddMove = (x, y) => {
+    console.log(moves.length)
     const nextPlayer = player === 'red' ? 'yellow' : 'red';
     let avaliableYposition = null;
     moves.concat([])
@@ -123,8 +123,8 @@ const AddMove = (x, y) => {
         .catch((e) => {console.log(JSON.stringify(e))})
 
         checkForWin(x, avaliableYposition, player)
-        setLastPlayer(player)
-        setPlayer(nextPlayer)
+        // setLastPlayer(player)
+        // setPlayer(nextPlayer)
         
     }
 
